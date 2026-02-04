@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root{
+    --nav-height: 80px;
+}
+
+html{ scroll-behavior: smooth; }
+
+
+.navbar-contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Usamos position fixed para que el menu te siga al bajar */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    padding: 0 5%; /* Usar porcentajes es más responsive */
+    z-index: 1000; /* Para que siempre esté encima de todo */
+    
+    /* EFECTO VIDRIO (Glassmorphism) */
+    background: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(10px); /* El efecto borroso detrás */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.titulo-web {
+    font-family: "Amatic SC", sans-serif;
+    font-weight: 700;
+    font-size: 40px; /* Ajustado ligeramente */
+    color: #ffcc3f;
+    letter-spacing: 2px;
+    cursor: pointer;
+    /* Sombra de texto para que resalte sobre cualquier fondo */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: transparent;
+}
+
+.lista-navegacion {
+    list-style: none;
+    display: flex;
+    gap: 30px; 
+    align-items: center;
+    background: transparent;
+     
+}
+
+.lista-navegacion li {
+    background-color: transparent;
+}
+
+
+.lista-navegacion li a {
+  text-decoration: none;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    /* --- AQUÍ ESTÁ LA SOLUCIÓN --- */
+    background-color: transparent; /* Asegura que no haya color de fondo */
+   background: transparent;
+
+    color: #e0e0e0; 
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    display: inline-block; /* Ayuda a que se comporte bien el contenedor */
+}
+
+/* Efecto Hover: Cambio de color y pequeña escala */
+.lista-navegacion li a:hover {
+    color: #ffcc3f; /* Se vuelve amarillo al pasar el mouse */
+    transform: scale(1.1);
+}
+
+/* Bonus: Una línea animada debajo del link al hacer hover */
+.lista-navegacion li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ffcc3f;
+    transition: width 0.3s ease-in-out;
+}
+
+.lista-navegacion li a:hover::after {
+    width: 100%;
+}
+
+/* Responsive: hide list and show toggle on small screens */
+.nav-toggle{
+    display: none;
+    background: transparent;
+    border: none;
+    width: 40px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.nav-toggle span{
+    display: block;
+    width: 26px;
+    height: 3px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle.open span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2){ opacity: 0; transform: scaleX(0); }
+.nav-toggle.open span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+
+@media (max-width: 720px){
+    :root{ --nav-height: 72px; }
+    .titulo-web{ font-size: 28px; }
+
+    .nav-toggle{ display: flex; flex-direction: column; }
+
+    .lista-navegacion{
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(10,10,10,0.95);
+        padding: 8px 16px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        transform-origin: top center;
+        transition: max-height 0.28s ease, opacity 0.28s ease;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        z-index: 999;
+    }
+
+    .lista-navegacion.open{
+        max-height: 320px;
+        opacity: 1;
+    }
+
+    .lista-navegacion li{ padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .lista-navegacion li a{ font-size: 18px; display: block; padding: 6px 4px; }
+
+    .navbar-contenedor{ padding: 0 4%; height: 72px; }
+}
+
+/* Ensure sections are not hidden behind fixed navbar when navigating via anchors */
+.section-container {
+    scroll-margin-top: calc(var(--nav-height) + 8px);
+}

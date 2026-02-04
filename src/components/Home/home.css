@@ -1,0 +1,5 @@
+.home {
+    background-color: #2d2d2d; /* Fondo oscuro para contraste */
+    padding-top: var(--nav-height);
+    min-height: calc(100vh - var(--nav-height));
+   }

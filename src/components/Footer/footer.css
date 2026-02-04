@@ -1,0 +1,27 @@
+.footer {
+  height: 200px;
+  background-color: #000; /* Fondo negro oscuro */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+.icon {
+  margin: 0 15px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.copyright {
+  margin-top: 20px;
+  font-size: 14px;
+  background-color: transparent;
+}
