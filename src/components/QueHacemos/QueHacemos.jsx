@@ -29,22 +29,26 @@ const QueHacemos = () => {
 
   // swipe / pointer state
   const ptr = useRef({ active: false, startX: 0, lastX: 0 });
+  const openGalleryRef = useRef(openGallery);
+  const zoomImageRef = useRef(zoomImage);
+
+  useEffect(() => { openGalleryRef.current = openGallery }, [openGallery]);
+  useEffect(() => { zoomImageRef.current = zoomImage }, [zoomImage]);
 
   const onPointerDown = (e) => {
     ptr.current.active = true;
-    const cx = (typeof e.clientX === 'number') ? e.clientX : (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
-    ptr.current.startX = cx;
-    ptr.current.lastX = cx;
+    ptr.current.startX = e.clientX;
+    ptr.current.lastX = e.clientX;
   };
 
   const onPointerMove = (e) => {
     if (!ptr.current.active) return;
-    ptr.current.lastX = (typeof e.clientX === 'number') ? e.clientX : (e.touches && e.touches[0] && e.touches[0].clientX) || ptr.current.lastX;
+    ptr.current.lastX = e.clientX;
   };
 
   const onPointerUp = (e) => {
     if (!ptr.current.active) return;
-    const endX = (typeof e.clientX === 'number') ? e.clientX : (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX) || ptr.current.lastX;
+    const endX = e.clientX || ptr.current.lastX;
     const delta = endX - ptr.current.startX;
     const THRESH = 50; // px
     if (Math.abs(delta) > THRESH) {
@@ -56,20 +60,29 @@ const QueHacemos = () => {
 
   const onPointerCancel = () => { ptr.current.active = false };
 
-  // keyboard navigation for gallery / modal
+  // keyboard navigation for gallery / modal (uses refs to avoid hook deps)
   useEffect(() => {
     const onKey = (e) => {
-      if (!openGallery && !zoomImage) return;
-      if (e.key === 'ArrowLeft') handlePrev();
-      if (e.key === 'ArrowRight') handleNext();
+      if (!openGalleryRef.current && !zoomImageRef.current) return;
+      if (e.key === 'ArrowLeft') {
+        const current = galleries[openGalleryRef.current];
+        setCarouselIndex(prev => (prev === 0 ? current.length - 1 : prev - 1));
+      }
+      if (e.key === 'ArrowRight') {
+        const current = galleries[openGalleryRef.current];
+        setCarouselIndex(prev => (prev === current.length - 1 ? 0 : prev + 1));
+      }
       if (e.key === 'Escape') {
-        if (zoomImage) setZoomImage(null);
-        else handleGalleryClose();
+        if (zoomImageRef.current) setZoomImage(null);
+        else {
+          setOpenGallery(null);
+          setZoomImage(null);
+        }
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [openGallery, zoomImage, handlePrev, handleNext, handleGalleryClose]);
+  }, []);
 
   const handleGalleryOpen = (type) => {
     setOpenGallery(type);
