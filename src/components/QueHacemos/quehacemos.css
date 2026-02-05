@@ -1,10 +1,10 @@
 .section-container {
     padding: 48px 16px;
-    background-color: #222;
+    background-color: transparent;
 }
 
 .services-bg {
-    background-color: #222;
+    background-color: transparent;
 }
 
 .content-wrapper{
@@ -125,6 +125,9 @@
     align-items: center;
     justify-content: center;
 }
+
+/* allow horizontal swipe detection while keeping vertical scroll native */
+.carousel-track, .modal-overlay{ touch-action: pan-y; }
 
 .carousel-track::before,
 .carousel-track::after{

@@ -1,8 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './navbar.css'
 
 const Navbar = ({ nombre, li1, li2, li3 }) => {
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    // Prevent background scroll when overlay menu open
+    if (open) document.body.classList.add('nav-open')
+    else document.body.classList.remove('nav-open')
+
+    return () => document.body.classList.remove('nav-open')
+  }, [open])
+
+  // close on Escape
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   return (
     <div className='navbar-contenedor'>

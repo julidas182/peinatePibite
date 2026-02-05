@@ -125,35 +125,43 @@ html{ scroll-behavior: smooth; }
 
     .nav-toggle{ display: flex; flex-direction: column; }
 
+    /* Fullscreen overlay menu on mobile */
     .lista-navegacion{
         position: fixed;
         left: 0;
         right: 0;
-        top: 80px;
+        top: var(--nav-height);
         display: flex;
         flex-direction: column;
         gap: 0;
-        background: rgba(10,10,10,0.95);
-        padding: 8px 16px;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
+        background: rgba(8,8,8,0.96);
+        padding: 20px 18px;
         transform-origin: top center;
-        transition: max-height 0.28s ease, opacity 0.28s ease;
-        max-height: 0;
-        overflow: hidden;
+        transition: transform 0.32s cubic-bezier(0.22,0.9,0.32,1), opacity 0.28s ease;
+        transform: translateY(-6%);
         opacity: 0;
-        z-index: 999;
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 1200;
+        pointer-events: none;
+        width: 100%;
     }
 
     .lista-navegacion.open{
-        max-height: 320px;
+        transform: translateY(0);
         opacity: 1;
+        pointer-events: auto;
     }
 
-    .lista-navegacion li{ padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .lista-navegacion li a{ font-size: 18px; display: block; padding: 6px 4px; }
+    .lista-navegacion li{ padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .lista-navegacion li a{ font-size: 18px; display: block; padding: 10px 6px; }
 
     .navbar-contenedor{ padding: 0 4%; height: 72px; }
+}
+
+/* Prevent page scroll when menu overlay is open (helper class applied by JS) */
+body.nav-open {
+    overflow: hidden;
 }
 
 /* Ensure sections are not hidden behind fixed navbar when navigating via anchors */
