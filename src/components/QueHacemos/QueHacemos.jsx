@@ -1,32 +1,31 @@
 import { useState, useEffect, useRef } from 'react';
 import './quehacemos.css';
 
+const galleries = {
+  corte: [
+    '/images/cut1.jpg',
+    '/images/cut2.jpg',
+    '/images/cut3.jpg',
+    '/images/cut4.jpg'
+  ],
+  color: [
+    '/images/color1.jpg',
+    '/images/color2.jpg',
+    '/images/color3.jpg',
+    '/images/color4.jpg'
+  ],
+  peinado: [
+    '/images/peinado1.jpg',
+    '/images/peinado2.jpg',
+    '/images/peinado3.jpg',
+    '/images/peinado4.jpg'
+  ]
+};
+
 const QueHacemos = () => {
   const [openGallery, setOpenGallery] = useState(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [zoomImage, setZoomImage] = useState(null);
-
-  const galleries = {
-    corte: [
-      '/images/cut1.jpg',
-      '/images/cut2.jpg',
-      '/images/cut3.jpg',
-      '/images/cut4.jpg'
-    ],
-    color: [
-      '/images/color1.jpg',
-      '/images/color2.jpg',
-      '/images/color3.jpg',
-      '/images/color4.jpg'
-    ],
-    peinado: [
-      '/images/peinado1.jpg',
-      '/images/peinado2.jpg',
-      '/images/peinado3.jpg',
-      '/images/peinado4.jpg'
-    ]
-  };
-
   // swipe / pointer state
   const ptr = useRef({ active: false, startX: 0, lastX: 0 });
   const openGalleryRef = useRef(openGallery);
