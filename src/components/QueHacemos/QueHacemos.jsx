@@ -69,7 +69,7 @@ const QueHacemos = () => {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [openGallery, zoomImage]);
+  }, [openGallery, zoomImage, handlePrev, handleNext, handleGalleryClose]);
 
   const handleGalleryOpen = (type) => {
     setOpenGallery(type);
