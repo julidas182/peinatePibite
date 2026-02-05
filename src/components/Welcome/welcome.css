@@ -6,14 +6,16 @@
 .welcome-container {
   max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  position: relative;
+  display: flex;
   align-items: center;
+  gap: 0;
 }
 
 .welcome-image {
   position: relative;
+  flex: 1;
+  min-height: 500px;
 }
 
 .welcome-image img {
@@ -26,8 +28,29 @@
   display: block;
 }
 
+/* Gradient overlay para transparencia hacia la derecha */
+.welcome-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.8) 100%);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+
 .welcome-content {
   color: #e8e8e8;
+  flex: 1;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 500px;
+  z-index: 3;
 }
 
 .welcome-content h1 {
@@ -47,7 +70,7 @@
 
 .welcome-content .description {
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.9;
   color: #d6d6d6;
   margin: 0 0 16px;
 }
@@ -77,8 +100,21 @@
 
 @media (max-width: 1000px) {
   .welcome-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    flex-direction: column;
+  }
+
+  .welcome-image {
+    width: 100%;
+  }
+
+  .welcome-content {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 30px;
+    right: auto;
+    top: auto;
   }
 
   .welcome-content h1 {
@@ -91,8 +127,20 @@
 }
 
 @media (max-width: 640px) {
-  .welcome-container {
-    gap: 20px;
+  .welcome-image {
+    min-height: 300px;
+  }
+
+  .welcome-image::after {
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
+  }
+
+  .welcome-content {
+    position: static;
+    transform: none;
+    right: auto;
+    top: auto;
+    padding-top: 20px;
   }
 
   .welcome-content h1 {
@@ -105,10 +153,6 @@
 
   .welcome-content .description {
     font-size: 0.95rem;
-  }
-
-  .welcome-image img {
-    max-height: 300px;
   }
 
   .cta-button {
