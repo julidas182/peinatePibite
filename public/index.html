@@ -20,7 +20,7 @@
         var script = document.createElement('script');
         // Generamos un número único basado en el tiempo actual
         var version = new Date().getTime();
-        script.src = "/apis-env.js?v=" + version;
+        script.src = "%PUBLIC_URL%/apis-env.js?v=" + version;
         script.async = false; // Importante para que se cargue en orden
         document.head.appendChild(script);
       })();
