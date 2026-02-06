@@ -37,7 +37,7 @@ const Navbar = ({ nombre, li1, li2, li3 }) => {
       <ul className={`lista-navegacion ${open ? 'open' : ''}`}>
         <li><a href="#que-hacemos" onClick={() => setOpen(false)}>{li1}</a></li>
         <li><a href="#donde-estamos" onClick={() => setOpen(false)}>{li2}</a></li>
-        <li><a href="#nuestros-trabajos" onClick={() => setOpen(false)}>{li3}</a></li>
+        <li><a href="#contactanos" onClick={() => setOpen(false)}>{li3}</a></li>
       </ul>
     </div>
   )
