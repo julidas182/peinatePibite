@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const SEOHelmet = ({ 
   title = "Peinate Pibite - Salon de Belleza Profesional",
