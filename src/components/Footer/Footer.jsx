@@ -12,7 +12,7 @@ const Footer = () => {
         <FaFacebook size={30} className="icon" />
         <MdEmail size={30} className="icon" />
       </div>
-      <p className="copyright">© 2026 Web-cut. Todos los derechos reservados.</p>
+      <p className="copyright">© 2026 Peinate Pibite. Todos los derechos reservados.</p>
     </footer>
   );
 };
