@@ -1,3 +1,21 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /private/
+Disallow: /*.json
+
+Sitemap: https://tu-dominio.com/sitemap.xml
+
+# Optimizar rastreo de Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Otros bots
+User-agent: *
+Crawl-delay: 1
+Request-rate: 1/10s
